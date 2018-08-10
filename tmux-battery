@@ -1,0 +1,16 @@
+#!/bin/sh
+
+PATH_PERCENT_FULL=/sys/class/power_supply/BAT0/capacity
+HEART_FILLED=♠
+
+PERCENT_FULL=$(cat "$PATH_PERCENT_FULL")
+NUM_HEARTS=$(echo "$((PERCENT_FULL/10))")
+echo -n '#[fg=red]'
+echo -n "$PERCENT_FULL%"
+for i in `seq 1 $NUM_HEARTS`; do echo -n "$HEART_FILLED"; done
+
+if [ $NUM_HEARTS -lt 10 ]; then 
+    echo -n '#[fg=white]'
+    NUM_EMPTY=3
+    for i in `seq 1 $NUM_EMPTY`; do echo -n "$HEART_FILLED"; done
+fi
